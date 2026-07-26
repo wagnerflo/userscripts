@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name             Fetlife Picture Downloader
-// @version          1
+// @version          2
 // @match            *://fetlife.com/*/pictures/*
 // @require          https://cdn.jsdelivr.net/gh/CoeJoder/waitForKeyElements.js@v1.3/waitForKeyElements.js
 // @require          https://raw.githubusercontent.com/Adrianotiger/CreateElement/refs/tags/Ver1/dist/cn.min.js
@@ -8,15 +8,6 @@
 // @require          https://raw.githubusercontent.com/eligrey/FileSaver.js/refs/tags/v2.0.4/dist/FileSaver.min.js
 // @grant            GM.xmlHttpRequest
 // ==/UserScript==
-
-const download = (args) =>
-	new Promise(resolve =>
-    GM.xmlHttpRequest({
-      method: "GET",
-      ...args,
-      onload: (resp) => resolve(resp),
-    })
-  );
 
 const NS = {
   RDF: "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
@@ -122,8 +113,9 @@ const onClick = async (splide) => {
   const hasSlides = splide.querySelectorAll(".splide__slide").length > 1;
   const slide = splide.querySelector(".splide__slide.is-active");
   const srcset = parseSrcset(slide.querySelector("img[srcset]").getAttribute("srcset"));
-  const resp = await download({
-	  url: srcset.sort((a, b) => (a.d || 0) > (b.d || 0)).pop().url,
+  const resp = await GM.xmlHttpRequest({
+    method: "GET",
+    url: srcset.sort((a, b) => (a.d || 0) > (b.d || 0)).pop().url,
     headers: { referer: "https://fetlife.com/" },
     responseType: "arraybuffer",
   });
