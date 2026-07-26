@@ -1,6 +1,7 @@
 // ==UserScript==
 // @name             Fetlife Picture Downloader
 // @version          2
+// @updateURL        https://raw.githubusercontent.com/wagnerflo/userscripts/refs/heads/main/Fetlife%20Picture%20Downloader.user.js
 // @match            *://fetlife.com/*/pictures/*
 // @require          https://cdn.jsdelivr.net/gh/CoeJoder/waitForKeyElements.js@v1.3/waitForKeyElements.js
 // @require          https://raw.githubusercontent.com/Adrianotiger/CreateElement/refs/tags/Ver1/dist/cn.min.js
